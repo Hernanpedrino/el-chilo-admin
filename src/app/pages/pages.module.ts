@@ -6,6 +6,11 @@ import { RouterModule } from '@angular/router';
 import { ClientesComponent } from './clientes/clientes.component';
 import { MainComponent } from './main.component';
 import { LoginComponent } from './login/login.component';
+import { ReparacionesComponent } from './reparaciones/reparaciones.component';
+import { NovedadesComponent } from './novedades/novedades.component';
+import { RecetasComponent } from './recetas/recetas.component';
+import { ListasPreciosComponent } from './listas-precios/listas-precios.component';
+import { NotificacionesComponent } from './notificaciones/notificaciones.component';
 
 
 
@@ -14,7 +19,12 @@ import { LoginComponent } from './login/login.component';
     HomeComponent,
     ClientesComponent,
     MainComponent,
-    LoginComponent
+    LoginComponent,
+    ReparacionesComponent,
+    NovedadesComponent,
+    RecetasComponent,
+    ListasPreciosComponent,
+    NotificacionesComponent
   ],
   imports: [
     CommonModule,

@@ -1,12 +1,11 @@
 <div>
     <app-nav-bar></app-nav-bar>
-    <app-side-bar></app-side-bar>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti pariatur debitis id? Tempore hic alias placeat ab similique velit, perferendis repellendus distinctio tempora optio iste doloribus amet? Quidem, temporibus exercitationem.</p>
-                <router-outlet></router-outlet>
-            </div>
+    <div class="row">
+        <div class="col-3">
+            <app-side-bar></app-side-bar>
+        </div>
+        <div class="col-9">
+            <router-outlet></router-outlet>
         </div>
     </div>
 </div>
