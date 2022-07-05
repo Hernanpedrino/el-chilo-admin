@@ -27,6 +27,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootswatch/dist/sandstone/bootstrap.min.css",
               "src/styles.css"
             ],
             "scripts": []
