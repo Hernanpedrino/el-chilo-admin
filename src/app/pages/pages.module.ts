@@ -11,6 +11,7 @@ import { NovedadesComponent } from './novedades/novedades.component';
 import { RecetasComponent } from './recetas/recetas.component';
 import { ListasPreciosComponent } from './listas-precios/listas-precios.component';
 import { NotificacionesComponent } from './notificaciones/notificaciones.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -29,7 +30,8 @@ import { NotificacionesComponent } from './notificaciones/notificaciones.compone
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ],
   exports:[
     HomeComponent,

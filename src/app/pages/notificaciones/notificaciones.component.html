@@ -1,23 +1,23 @@
 <div class="row d-flex justify-content-center mt-3">
     <div class="col-6">
         <h3 class="text-center">Notificaciones</h3>
-        <form>
+        <form [formGroup]="formNotification" (submit)="enviarNotificacion()">
             <fieldset>
                 <div class="form-group">
                     <label for="exampleInputEmail1" class="form-label mt-2">Titulo de la notificacion</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" formControlName="titulo">
                   </div>
             </fieldset>
             <fieldset>
                 <div class="form-group">
                     <label for="exampleTextarea" class="form-label mt-2">Mensaje</label>
-                    <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+                    <textarea class="form-control" id="exampleTextarea" rows="3" formControlName="mensaje"></textarea>
                   </div>
             </fieldset>
             <fieldset>
                 <div class="form-group">
                     <label for="exampleSelect1" class="form-label mt-2">Categoria</label>
-                    <select class="form-select" id="exampleSelect1">
+                    <select class="form-select" id="exampleSelect1" formControlName="categoria">
                       <option>reparaciones</option>
                       <option>novedades</option>
                       <option>listas-precios</option>
@@ -26,37 +26,9 @@
             </fieldset>
             <legend class="mt-2">Usuarios</legend>
             <div class="list-group">
-                <label class="list-group-item">
-                  <input class="form-check-input me-1" type="checkbox" value="">
-                  First checkbox
-                </label>
-                <label class="list-group-item">
-                  <input class="form-check-input me-1" type="checkbox" value="">
-                  Second checkbox
-                </label>
-                <label class="list-group-item">
-                  <input class="form-check-input me-1" type="checkbox" value="">
-                  Second checkbox
-                </label>
-                <label class="list-group-item">
-                  <input class="form-check-input me-1" type="checkbox" value="">
-                  Second checkbox
-                </label>
-                <label class="list-group-item">
-                  <input class="form-check-input me-1" type="checkbox" value="">
-                  Second checkbox
-                </label>
-                <label class="list-group-item">
-                  <input class="form-check-input me-1" type="checkbox" value="">
-                  Third checkbox
-                </label>
-                <label class="list-group-item">
-                  <input class="form-check-input me-1" type="checkbox" value="">
-                  Fourth checkbox
-                </label>
-                <label class="list-group-item">
-                  <input class="form-check-input me-1" type="checkbox" value="">
-                  Fifth checkbox
+                <label class="list-group-item" *ngFor="let user of users; let i = index">
+                  <input class="form-check-input me-1" type="checkbox" [value]="user" formControlName="usuarios">
+                  {{user.nombre | titlecase}} {{user.apellido | titlecase}}
                 </label>
             </div>
             <fieldset>
@@ -65,7 +37,7 @@
                   <label class="form-check-label" for="flexSwitchCheckDefault">Seleccionar todos</label>
                 </div>
               </fieldset>
-              <button type="button" class="btn btn-primary mt-2">Submit</button>
+              <button type="submit" class="btn btn-primary mt-2">Submit</button>
         </form>
     </div>
 </div>
