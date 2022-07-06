@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DatosService } from '../../services/datos.service';
-import { User } from '../interfaces/user.interface';
+import { User } from '../../interfaces/user.interface';
 import { map, pluck } from 'rxjs/operators';
 
 @Component({
