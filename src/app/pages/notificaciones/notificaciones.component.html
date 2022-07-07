@@ -27,13 +27,14 @@
             <legend class="mt-2">Usuarios</legend>
             <div class="list-group">
                 <label class="list-group-item" *ngFor="let user of users; let i = index">
-                  <input class="form-check-input me-1" type="checkbox" [value]="user" formControlName="usuarios">
+                  <input class="form-check-input me-1" type="checkbox" [value]="user.deviceId" (change)="onChange(user.deviceId, $event, i)" 
+                  formControlName="usuarios" [checked]="check">
                   {{user.nombre | titlecase}} {{user.apellido | titlecase}}
                 </label>
             </div>
             <fieldset>
                 <div class="form-check form-switch mt-2">
-                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" (change)="seleccionarTodos()" formControlName="selTodos">
                   <label class="form-check-label" for="flexSwitchCheckDefault">Seleccionar todos</label>
                 </div>
               </fieldset>
