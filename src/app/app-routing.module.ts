@@ -9,11 +9,13 @@ import { NotificacionesComponent } from './pages/notificaciones/notificaciones.c
 import { NovedadesComponent } from './pages/novedades/novedades.component';
 import { RecetasComponent } from './pages/recetas/recetas.component';
 import { ReparacionesComponent } from './pages/reparaciones/reparaciones.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   { 
     path: '', 
     component: MainComponent,
+    canActivate:[AuthGuard],
     children: [
       { path: 'home', component: HomeComponent },
       { path: 'clientes', component: ClientesComponent },
