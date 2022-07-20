@@ -5,19 +5,19 @@
             <fieldset>
                 <div class="form-group">
                     <label for="exampleInputEmail1" class="form-label mt-2">Titulo de la notificacion</label>
-                    <input type="text" class="form-control" formControlName="titulo">
+                    <input type="text" class="form-control" formControlName="titulo" required>
                   </div>
             </fieldset>
             <fieldset>
                 <div class="form-group">
                     <label for="exampleTextarea" class="form-label mt-2">Mensaje</label>
-                    <textarea class="form-control" id="exampleTextarea" rows="3" formControlName="mensaje"></textarea>
+                    <textarea class="form-control" id="exampleTextarea" rows="3" formControlName="mensaje" required></textarea>
                   </div>
             </fieldset>
             <fieldset>
                 <div class="form-group">
                     <label for="exampleSelect1" class="form-label mt-2">Categoria</label>
-                    <select class="form-select" id="exampleSelect1" formControlName="categoria">
+                    <select class="form-select" id="exampleSelect1" formControlName="categoria" required>
                       <option>reparaciones</option>
                       <option>novedades</option>
                       <option>listas-precios</option>
@@ -27,8 +27,8 @@
             <legend class="mt-2">Usuarios</legend>
             <div class="list-group">
                 <label class="list-group-item" *ngFor="let user of users; let i = index">
-                  <input class="form-check-input me-1" type="checkbox" [value]="user.deviceId" (change)="onChange(user.deviceId, $event, i)" 
-                  formControlName="usuarios" [checked]="check">
+                  <input class="form-check-input me-1" type="checkbox" [value]="user.deviceId" (change)="onChange(user.deviceId, $event.target)" 
+                  formControlName="usuarios" [checked]="check" required>
                   {{user.nombre | titlecase}} {{user.apellido | titlecase}}
                 </label>
             </div>
@@ -38,7 +38,7 @@
                   <label class="form-check-label" for="flexSwitchCheckDefault">Seleccionar todos</label>
                 </div>
               </fieldset>
-              <button type="submit" class="btn btn-primary mt-2">Submit</button>
+              <button type="submit" class="btn btn-primary mt-2" [disabled]="this.formNotification.invalid">Submit</button>
         </form>
     </div>
 </div>

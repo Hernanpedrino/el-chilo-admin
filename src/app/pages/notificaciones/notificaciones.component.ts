@@ -13,7 +13,7 @@ export class NotificacionesComponent implements OnInit {
 
   public check = false;
   public users:User[] = [];
-  private devices:string[] = []
+  public devices:string[] = []
   formNotification = new FormGroup({
       titulo: new FormControl(''),
       mensaje: new FormControl(''),
@@ -37,11 +37,16 @@ export class NotificacionesComponent implements OnInit {
   }
   enviarNotificacion(){
    console.log(this.formNotification.value);
-   
+   console.log(this.devices);
   }
-  onChange(deviceId:string, event: Event, i:any){
-      console.log(i);
-      // TODO: Ver como encontrar la posicion para el check
+  onChange(deviceId:string, event: EventTarget | null){
+    const input = event as HTMLInputElement;
+    if (input.checked) {
+      this.devices.push(deviceId);
+    } else {
+      let index = this.devices.indexOf(deviceId);
+      this.devices.splice(index,1);
+    }
   }
   seleccionarTodos(){
     if (this.formNotification.controls['selTodos'].value) {
@@ -49,14 +54,9 @@ export class NotificacionesComponent implements OnInit {
       this.users.forEach(user => {
         this.devices.push(user.deviceId);
       });
-      console.log(this.devices);
-      
-      
     } else {
       this.check = false
       this.devices = [];
-      console.log(this.devices);
-      
     }
     
   }
