@@ -26,8 +26,8 @@ const routes: Routes = [
       { path: 'reparaciones', component: ReparacionesComponent },
       { path: '', redirectTo: '/home', pathMatch: 'full' },
     ]
- },
- { path: 'login', component: LoginComponent },
+  },
+  { path: 'login', component: LoginComponent },
 ];
 
 @NgModule({
