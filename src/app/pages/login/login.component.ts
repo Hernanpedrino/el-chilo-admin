@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DatosService } from '../../services/datos.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-login',
@@ -21,15 +22,22 @@ export class LoginComponent implements OnInit {
   }
 
   loginFormSubmit(){
+    Swal.showLoading();
     const{ email, password } = this.formLogin.value;
     this.datosService.loginUser(email!, password!)
     .subscribe((resp:any)=>{
       if (resp) {
+        Swal.hideLoading();
         const token = resp.token;
         const userId = resp.usuario._id;
         localStorage.setItem('token', token);
         localStorage.setItem('userId', userId);
+        Swal.fire({
+          title:'Bienvenido',
+          icon: 'success'
+        });
         this.router.navigateByUrl('/home');
+      
       }
   
       
