@@ -3,6 +3,7 @@ import { pluck, map } from 'rxjs/operators';
 import { DatosService } from '../../services/datos.service';
 import { User } from '../../interfaces/user.interface';
 import { FormControl, FormGroup } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-notificaciones',
@@ -36,8 +37,28 @@ export class NotificacionesComponent implements OnInit {
     ).subscribe()
   }
   enviarNotificacion(){
-   console.log(this.formNotification.value);
-   console.log(this.devices);
+    const titulo = this.formNotification.get('titulo')!.value;
+    const categoria = this.formNotification.get('categoria')!.value;
+    const mensaje = this.formNotification.get('mensaje')!.value;
+    this.datosService.sendGroupNotification(titulo!, mensaje!, categoria!, this.devices)
+    .subscribe(resp =>{
+      if (resp) {
+        Swal.fire({
+          title:'Notificaciones enviadas',
+          icon: 'success'
+        });
+        this.formNotification.reset();
+      }
+    }, err =>{
+      if (err) {
+        Swal.fire({
+          title:'Sucedio un error',
+          text: 'Ocurrio un error al enviar las notificaciones. Intente nuevamente.',
+          icon: 'error'
+        })
+      }
+    })
+    
   }
   onChange(deviceId:string, event: EventTarget | null){
     const input = event as HTMLInputElement;

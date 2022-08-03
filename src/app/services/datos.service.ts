@@ -36,4 +36,10 @@ export class DatosService {
     const token = localStorage.getItem('token');
     return this.http.get(`${environment.baseUrl}/usuarios`,{headers:{'x-token': token!}})
   }
+
+  sendGroupNotification(titulo:string, mensaje:string, categoria:string, devices:string[]): Observable<Object>{
+    return this.http.post(
+      `${environment.baseUrl}/notificaciones/group-notification`,
+      {titulo, mensaje, categoria, devices})
+  }
 }
