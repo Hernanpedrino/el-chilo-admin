@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DatosService } from '../../services/datos.service';
 
 @Component({
   selector: 'app-reparaciones',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReparacionesComponent implements OnInit {
 
-  constructor() { }
+  public repairs: any[] = [];
+  constructor(private datosService: DatosService) { }
 
   ngOnInit(): void {
+    this.reparaciones();
+  }
+  reparaciones(){
+    this.datosService.getReparaciones().subscribe((resp:any)=>{
+      this.repairs = resp.repairs;
+      console.log(this.repairs);
+      
+    });
+    
   }
 
 }

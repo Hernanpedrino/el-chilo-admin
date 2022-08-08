@@ -15,56 +15,56 @@
                             <table class="table table-bordered">
                                 <thead>
                                   <tr>
+                                    <th scope="col">Fecha recepcion</th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Apellido</th>
-                                    <th scope="col">Localidad</th>
-                                    <th scope="col">Provincia</th>
-                                    <th scope="col">Telefono</th>
+                                    <th scope="col">Maquina</th>
+                                    <th scope="col">Presupuesto</th>
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <!-- <tr class="table-active"*ngFor="let user of users">
-                                    <td>{{user.nombre | titlecase}}</td>
-                                    <td>{{user.apellido | titlecase}}</td>
-                                    <td>{{user.localidad | titlecase}}</td>
-                                    <td>{{user.provincia | titlecase}}</td>
-                                    <td>{{user.telefono}}</td>
+                                  <tr class="table-active" *ngFor="let repair of repairs">
+                                    <td>{{repair.fechaRecepcion | date}}</td>
+                                    <td>{{repair.usuario?.nombre | titlecase}}</td>
+                                    <td>{{repair.usuario?.apellido | titlecase}}</td>
+                                    <td>{{repair.descripcion | titlecase}}</td>
+                                    <td>{{repair.presupuesto | currency}}</td>
+                                  </tr>
+                                  <!-- <tr>
+                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
+                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
+                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
+                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
+                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
+                                  </tr>
+                                  <tr>
+                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
+                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
+                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
+                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
+                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
+                                  </tr>
+                                  <tr>
+                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
+                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
+                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
+                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
+                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
+                                  </tr>
+                                  <tr>
+                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
+                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
+                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
+                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
+                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
+                                  </tr>
+                                  <tr>
+                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
+                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
+                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
+                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
+                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
                                   </tr> -->
-                                  <tr>
-                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
-                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
-                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
-                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
-                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
-                                  </tr>
-                                  <tr>
-                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
-                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
-                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
-                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
-                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
-                                  </tr>
-                                  <tr>
-                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
-                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
-                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
-                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
-                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
-                                  </tr>
-                                  <tr>
-                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
-                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
-                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
-                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
-                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
-                                  </tr>
-                                  <tr>
-                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
-                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
-                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
-                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
-                                    <th class="placeholder-glow"><span class="placeholder col-12"></span></th>
-                                  </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -111,9 +111,25 @@
         </div>
     </div>
     <div class="col-6 mt-4">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, iure quae molestiae labore, alias fugiat exercitationem, hic sit quos voluptatum atque placeat provident possimus voluptas facere tempora culpa aliquam nemo.</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, iure quae molestiae labore, alias fugiat exercitationem, hic sit quos voluptatum atque placeat provident possimus voluptas facere tempora culpa aliquam nemo.</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, iure quae molestiae labore, alias fugiat exercitationem, hic sit quos voluptatum atque placeat provident possimus voluptas facere tempora culpa aliquam nemo.</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, iure quae molestiae labore, alias fugiat exercitationem, hic sit quos voluptatum atque placeat provident possimus voluptas facere tempora culpa aliquam nemo.</p>
+        <h3>Registrar nueva reparacion</h3>
+        <!-- <form>
+          <fieldset>
+              <div class="form-group">
+                  <label for="exampleTextarea" class="form-label mt-2">Maquina que se recibe y estadoy</label>
+                  <textarea class="form-control" id="exampleTextarea" rows="3" formControlName="mensaje" required></textarea>
+                </div>
+          </fieldset>
+          <div class="form-group">
+            <label for="exampleSelect1" class="form-label mt-2">Cliente</label>
+            <select class="form-select">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </select>
+          </div>
+            <button type="submit" class="btn btn-primary mt-2">Registar</button>
+      </form> -->
     </div>
 </div>

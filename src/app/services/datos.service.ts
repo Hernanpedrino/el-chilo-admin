@@ -42,4 +42,8 @@ export class DatosService {
       `${environment.baseUrl}/notificaciones/group-notification`,
       {titulo, mensaje, categoria, devices})
   }
+
+  getReparaciones(): Observable<Object>{
+    return this.http.get(`${environment.baseUrl}/reparaciones`);
+  }
 }
