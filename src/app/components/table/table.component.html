@@ -1,1 +1,12 @@
-<p>table works!</p>
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col" *ngFor="let head of header">{{head}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="table-active" *ngFor="let dato of datos">
+        <td *ngFor="let item of dato">{{item}}</td>
+      </tr>
+    </tbody>
+</table>
