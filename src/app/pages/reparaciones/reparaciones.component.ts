@@ -8,7 +8,10 @@ import { DatosService } from '../../services/datos.service';
 })
 export class ReparacionesComponent implements OnInit {
 
-  public repairs: any[] = [];
+  public activeRepairs: any[] = [];
+  public finishedRepairs: any[] = [];
+  public afiladosActivos: any[] = [];
+  public afiladosTerminados: any[] = [];
   constructor(private datosService: DatosService) { }
 
   ngOnInit(): void {
@@ -16,11 +19,17 @@ export class ReparacionesComponent implements OnInit {
   }
   reparaciones(){
     this.datosService.getReparaciones().subscribe((resp:any)=>{
-      this.repairs = resp.repairs;
-      console.log(this.repairs);
-      
+      let tempArr = []
+      tempArr = resp.repairs;
+      const filtroRepActivas = tempArr.filter((active:any) => active.reparacionTerminada == false && active.reparacion == 'reparacion');
+      this.activeRepairs = filtroRepActivas;
+      const filtroRepTerminadas = tempArr.filter((active:any) => active.reparacionTerminada == true && active.reparacion == 'reparacion');
+      this.finishedRepairs = filtroRepTerminadas;
+      const filtroAfiladosActivos = tempArr.filter((active:any) => active.reparacionTerminada == false && active.reparacion == 'afilado');
+      this.afiladosActivos = filtroAfiladosActivos;
+      const filtroAfiladosTerminados = tempArr.filter((active:any) => active.reparacionTerminada == true && active.reparacion == 'afilado');
+      this.afiladosTerminados = filtroAfiladosTerminados;
     });
-    
   }
-
+  
 }
