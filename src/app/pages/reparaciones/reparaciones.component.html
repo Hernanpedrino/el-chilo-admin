@@ -25,13 +25,13 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr class="table-active" *ngFor="let repair of activeRepairs">
+                                  <tr class="table-active" *ngFor="let repair of activeRepairs; let i = index">
                                     <td>{{repair.fechaRecepcion | date}}</td>
                                     <td>{{repair.usuario.nombre | titlecase}}</td>
                                     <td>{{repair.usuario.apellido | titlecase}}</td>
                                     <td>{{repair.descripcion | titlecase}}</td>
                                     <td>{{repair.presupuesto | currency}}</td>
-                                    <td><i class="bi bi-pencil-square"></i></td>
+                                    <td><button class="btn btn-primary" (click)="editar(i)"><i class="bi bi-pencil-square"></i></button></td>
                                   </tr>
                                 </tbody>
                             </table>
@@ -144,24 +144,31 @@
     </div>
     <div class="col-6 mt-4">
         <h3 class="text-center">Registrar nueva reparacion/afilado</h3>
-        <!-- <form>
-          <fieldset>
-              <div class="form-group">
-                  <label for="exampleTextarea" class="form-label mt-2">Maquina que se recibe y estadoy</label>
-                  <textarea class="form-control" id="exampleTextarea" rows="3" formControlName="mensaje" required></textarea>
-                </div>
-          </fieldset>
-          <div class="form-group">
-            <label for="exampleSelect1" class="form-label mt-2">Cliente</label>
-            <select class="form-select">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </select>
-          </div>
-            <button type="submit" class="btn btn-primary mt-2">Registar</button>
-      </form> -->
+        
     </div>
+</div>
+<div class="row justify-content-center" *ngIf="edicion">
+  <div class="col-8">
+    <h3 class="text-center mt-4">Editar Reparacion</h3>
+    <h3><strong>Cliente</strong> <h5 class="mt-1">{{nombre | titlecase}} {{apellido | titlecase}}</h5></h3>
+    <h5>Fecha de recepcion {{fecha | date }}</h5>
+    <form action="">
+      <fieldset>
+        <div class="form-group row">
+          <div class="form-group">
+            <label class="col-form-label mt-4" for="inputDefault">Maquina-Repuesto</label>
+            <input type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="exampleTextarea" class="form-label mt-4">Descripcion del presupuesto</label>
+            <textarea class="form-control" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="col-form-label mt-4" for="inputDefault">Presupuesto</label>
+            <input type="text" class="form-control">
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
 </div>
