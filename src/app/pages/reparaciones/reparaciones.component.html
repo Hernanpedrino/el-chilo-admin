@@ -144,7 +144,31 @@
     </div>
     <div class="col-6 mt-4">
         <h3 class="text-center">Registrar nueva reparacion/afilado</h3>
-        
+        <div class="row">
+          <form action="">
+            <div class="form-group col-10">
+              <label for="cliente" class="form-label mt-4">Cliente</label>
+              <select class="form-select" id="cliente">
+                <option *ngFor="let cliente of clientes" [value]="cliente._id">{{cliente.apellido | titlecase}} {{cliente.nombre | titlecase}}</option>
+              </select>
+            </div>
+            <div class="form-group col-10">
+              <label for="tipoReparacion" class="form-label mt-4">Tipo de reparacion</label>
+              <select class="form-select" id="tipoReparacion">
+                <option>Afilado</option>
+                <option>Reparacion</option>
+              </select>
+            </div>
+            <div class="form-group col-10">
+              <label for="descripcionReparacion" class="form-label mt-4">Descripcion</label>
+              <textarea class="form-control" id="descripcionReparacion" rows="3"></textarea>
+            </div>
+            <div class="form-group col-10">
+              <label for="presupuesto" class="form-label mt-4">Presupuesto</label>
+              <input type="text" class="form-control " id="presupuesto">
+            </div>
+          </form>
+        </div>
     </div>
 </div>
 <div class="row justify-content-center" *ngIf="edicion">

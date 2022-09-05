@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { pluck, map } from 'rxjs/operators';
+import { Client } from 'src/app/interfaces/user.interface';
 import { DatosService } from '../../services/datos.service';
 
 @Component({
@@ -18,15 +20,15 @@ export class ReparacionesComponent implements OnInit {
   public fecha: Date | undefined;
 
 
+  public clientes:Client[] = [];
   constructor(private datosService: DatosService) { }
 
   ngOnInit(): void {
     this.reparaciones();
+    this.getAllClients();
   }
   reparaciones(){
     this.datosService.getReparaciones().subscribe((resp:any)=>{
-      console.log(resp);
-      
       let tempArr = []
       tempArr = resp.repairs;
       const filtroRepActivas = tempArr.filter((active:any) => active.reparacionTerminada == false && active.reparacion == 'reparacion');
@@ -46,6 +48,15 @@ export class ReparacionesComponent implements OnInit {
     this.apellido = this.activeRepairs[i].usuario.apellido;
     this.fecha = this.activeRepairs[i].fechaRecepcion;
     
+  }
+  getAllClients(): void{
+    this.datosService.getUsuarios()
+    .pipe(
+      pluck<Object, Client[]>('users'),
+      map((resp:Client[])=>{
+        this.clientes = resp;
+      })
+    ).subscribe()
   }
   
 }

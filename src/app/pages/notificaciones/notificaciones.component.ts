@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { pluck, map } from 'rxjs/operators';
 import { DatosService } from '../../services/datos.service';
-import { User } from '../../interfaces/user.interface';
+import { Client } from '../../interfaces/user.interface';
 import { FormControl, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';
 
@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 export class NotificacionesComponent implements OnInit {
 
   public check = false;
-  public users:User[] = [];
+  public users:Client[] = [];
   public devices:string[] = []
   formNotification = new FormGroup({
       titulo: new FormControl(''),
@@ -30,8 +30,8 @@ export class NotificacionesComponent implements OnInit {
   getAllUsers(){
     this.datosService.getUsuarios()
     .pipe(
-      pluck<Object, User[]>('users'),
-      map((resp:User[])=>{
+      pluck<Object, Client[]>('users'),
+      map((resp:Client[])=>{
         this.users = resp;
       })
     ).subscribe()

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DatosService } from '../../services/datos.service';
-import { User } from '../../interfaces/user.interface';
+import { Client } from '../../interfaces/user.interface';
 import { map, pluck } from 'rxjs/operators';
 
 @Component({
@@ -10,17 +10,17 @@ import { map, pluck } from 'rxjs/operators';
 })
 export class ClientesComponent implements OnInit {
 
-  public users:User[] = [];
+  public users:Client[] = [];
   constructor(private datosService: DatosService) { }
 
   ngOnInit(): void {
-    this.getAllUsers()
+    this.getAllClients()
   }
-  getAllUsers(){
+  getAllClients(): void{
     this.datosService.getUsuarios()
     .pipe(
-      pluck<Object, User[]>('users'),
-      map((resp:User[])=>{
+      pluck<Object, Client[]>('users'),
+      map((resp:Client[])=>{
         this.users = resp;
       })
     ).subscribe()
