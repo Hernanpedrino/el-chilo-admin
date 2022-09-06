@@ -32,18 +32,25 @@ export class DatosService {
     )
   }
 
-  getUsuarios(): Observable<Object>{
+  getUsers(): Observable<Object>{
     const token = localStorage.getItem('token');
     return this.http.get(`${environment.baseUrl}/usuarios`,{headers:{'x-token': token!}})
   }
-
-  sendGroupNotification(titulo:string, mensaje:string, categoria:string, devices:string[]): Observable<Object>{
-    return this.http.post(
-      `${environment.baseUrl}/notificaciones/group-notification`,
-      {titulo, mensaje, categoria, devices})
+  getUserById(id:string, token:string): Observable<Object>{
+    return this.http.get(
+      `${environment.baseUrl}/usuarios/${id}`,
+      {headers:{'x-token': token}}
+    )
   }
 
   getReparaciones(): Observable<Object>{
     return this.http.get(`${environment.baseUrl}/reparaciones`);
+  }
+
+  newRepair({userId, reparacion, descripcion, presupuesto, descripcionPresupuesto}: {userId:string, reparacion: string, descripcion:string, presupuesto:number, descripcionPresupuesto:string}): Observable<Object>{
+    return this.http.post(
+      `${environment.baseUrl}/reparaciones/${userId}/new-repair`,
+      {reparacion, descripcion, presupuesto, descripcionPresupuesto}
+    )
   }
 }

@@ -17,7 +17,7 @@ export class ClientesComponent implements OnInit {
     this.getAllClients()
   }
   getAllClients(): void{
-    this.datosService.getUsuarios()
+    this.datosService.getUsers()
     .pipe(
       pluck<Object, Client[]>('users'),
       map((resp:Client[])=>{

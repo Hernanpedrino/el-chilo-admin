@@ -145,27 +145,35 @@
     <div class="col-6 mt-4">
         <h3 class="text-center">Registrar nueva reparacion/afilado</h3>
         <div class="row">
-          <form action="">
+          <form [formGroup]="formularioReparaciones" (submit)="registrarReparacion()">
             <div class="form-group col-10">
               <label for="cliente" class="form-label mt-4">Cliente</label>
-              <select class="form-select" id="cliente">
+              <select class="form-select" id="cliente" formControlName="cliente">
+                <option value="">Seleccione un cliente</option>
                 <option *ngFor="let cliente of clientes" [value]="cliente._id">{{cliente.apellido | titlecase}} {{cliente.nombre | titlecase}}</option>
               </select>
             </div>
             <div class="form-group col-10">
               <label for="tipoReparacion" class="form-label mt-4">Tipo de reparacion</label>
-              <select class="form-select" id="tipoReparacion">
+              <select class="form-select" id="tipoReparacion" formControlName="tipo">
                 <option>Afilado</option>
                 <option>Reparacion</option>
               </select>
             </div>
             <div class="form-group col-10">
+              <label for="descripcionMaquinaAfilado" class="form-label mt-4">Detalle de la Maquina/Afilado</label>
+              <input type="text" class="form-control" formControlName="descripcionMaquinaAfilado">
+            </div>
+            <div class="form-group col-10">
               <label for="descripcionReparacion" class="form-label mt-4">Descripcion</label>
-              <textarea class="form-control" id="descripcionReparacion" rows="3"></textarea>
+              <textarea class="form-control" id="descripcionReparacion" rows="3" formControlName="descripcion"></textarea>
             </div>
             <div class="form-group col-10">
               <label for="presupuesto" class="form-label mt-4">Presupuesto</label>
-              <input type="text" class="form-control " id="presupuesto">
+              <input type="text" class="form-control " id="presupuesto" formControlName="presupuesto">
+            </div>
+            <div class="d-grid col-10 mt-4">
+              <button class="btn btn-lg btn-primary" type="submit" [disabled]="formularioReparaciones.invalid">Ingresar Reparacion</button>
             </div>
           </form>
         </div>

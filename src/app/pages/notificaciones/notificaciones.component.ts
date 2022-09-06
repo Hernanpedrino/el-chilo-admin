@@ -4,6 +4,7 @@ import { DatosService } from '../../services/datos.service';
 import { Client } from '../../interfaces/user.interface';
 import { FormControl, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { NotificationsService } from './../../services/notificaciones.service';
 
 @Component({
   selector: 'app-notificaciones',
@@ -22,13 +23,14 @@ export class NotificacionesComponent implements OnInit {
       usuarios: new FormControl(),
       selTodos: new FormControl(),
   });
-  constructor(private datosService: DatosService) {}
+  constructor(private datosService: DatosService,
+              private notificationService: NotificationsService) {}
 
   ngOnInit(): void {
     this.getAllUsers()
   }
   getAllUsers(){
-    this.datosService.getUsuarios()
+    this.datosService.getUsers()
     .pipe(
       pluck<Object, Client[]>('users'),
       map((resp:Client[])=>{
@@ -40,7 +42,7 @@ export class NotificacionesComponent implements OnInit {
     const titulo = this.formNotification.get('titulo')!.value;
     const categoria = this.formNotification.get('categoria')!.value;
     const mensaje = this.formNotification.get('mensaje')!.value;
-    this.datosService.sendGroupNotification(titulo!, mensaje!, categoria!, this.devices)
+    this.notificationService.sendGroupNotification({ titulo: titulo!, mensaje: mensaje!, categoria: categoria!, devices: this.devices })
     .subscribe(resp =>{
       if (resp) {
         Swal.fire({
