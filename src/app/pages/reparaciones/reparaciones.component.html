@@ -179,29 +179,37 @@
         </div>
     </div>
 </div>
+
 <div class="row justify-content-start mb-4" *ngIf="edicion">
   <div class="col-8">
     <h3 class="text-center mt-4">Editar Reparacion</h3>
     <h3><strong>Cliente</strong> <h5 class="mt-1">{{nombre | titlecase}} {{apellido | titlecase}}</h5></h3>
     <h5>Fecha de recepcion {{fecha | date }}</h5>
-    <form [formGroup]="formularioEdicion">
+    <form [formGroup]="formularioEdicion" (submit)="guardarActualizacion()">
       <fieldset>
         <div class="form-group">
           <div class="form-group col-8">
             <label class="col-form-label mt-4" for="inputDefault">Maquina-Repuesto</label>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" formControlName="maquinaRepuesto">
           </div>
           <div class="form-group col-8">
             <label for="exampleTextarea" class="form-label mt-4">Descripcion del presupuesto</label>
-            <textarea class="form-control" rows="3"></textarea>
+            <textarea class="form-control" rows="3" formControlName="descripcion"></textarea>
           </div>
           <div class="form-group col-8">
             <label class="col-form-label mt-4" for="inputDefault">Presupuesto</label>
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" formControlName="presupuesto">
           </div>
         </div>
+        <div class="form-check form-switch mt-4">
+          <label class="form-check-label" for="flexSwitchCheckChecked">Reparacion Terminada</label>
+          <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" formControlName="reparacionTerminada">
+        </div>
       </fieldset>
-      <button class="btn btn-primary mt-4">Guardar Cambios</button>
+      <div class="row">
+        <button class="btn btn-primary mt-4" type="submit">Guardar Cambios</button>
+        <button class="btn btn-danger mt-4" type="button" (click)="cancelar()">Cancelar</button>
+      </div>
     </form>
   </div>
 </div>

@@ -2,15 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from './../../environments/environment';
-import { DatosService } from './datos.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationsService {
 
-  constructor(private http: HttpClient,
-              private datosService: DatosService) { }
+  constructor(private http: HttpClient) { }
 
   sendGroupNotification({ titulo, mensaje, categoria, devices }: { titulo: string; mensaje: string; categoria: string; devices: string[]; }): Observable<Object>{
     return this.http.post(

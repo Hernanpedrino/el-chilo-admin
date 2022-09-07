@@ -22,9 +22,9 @@ export class ReparacionesComponent implements OnInit {
   public nombre: string | undefined;
   public apellido: string | undefined;
   public fecha: Date | undefined;
-
-
   public clientes:Client[] = [];
+  private idReparacion: string = '';
+
   formularioReparaciones = new FormGroup({
     cliente: new FormControl('', [Validators.required]),
     tipo: new FormControl('', [Validators.required]),
@@ -32,9 +32,14 @@ export class ReparacionesComponent implements OnInit {
     descripcion: new FormControl('', [Validators.required]),
     presupuesto: new FormControl(''),
   })
+
   formularioEdicion = new FormGroup({
-    
+    maquinaRepuesto: new FormControl(),
+    descripcion: new FormControl(),
+    presupuesto: new FormControl(),
+    reparacionTerminada: new FormControl(),
   })
+  
   constructor(private datosService: DatosService,
               private notificationService: NotificationsService) { }
 
@@ -57,12 +62,45 @@ export class ReparacionesComponent implements OnInit {
     });
   }
   editar(i:number){
-    console.log(this.activeRepairs[i]);
+    this.formularioEdicion.setValue({
+      maquinaRepuesto: this.activeRepairs[i].descripcion,
+      descripcion: this.activeRepairs[i].descripcionPresupuesto,
+      presupuesto: this.activeRepairs[i].presupuesto,
+      reparacionTerminada: this.activeRepairs[i].reparacionTerminada
+    })
     this.edicion = true;
     this.nombre = this.activeRepairs[i].usuario.nombre;
     this.apellido = this.activeRepairs[i].usuario.apellido;
     this.fecha = this.activeRepairs[i].fechaRecepcion;
-    
+    this.idReparacion = this.activeRepairs[i]._id;
+  }
+  guardarActualizacion(){
+    Swal.showLoading();
+    this.datosService.updateRepair({
+      repairId: this.idReparacion,
+      descripcion: this.formularioEdicion.get('maquinaRepuesto')!.value,
+      descripcionPresupuesto: this.formularioEdicion.get('descripcion')!.value,
+      presupuesto: this.formularioEdicion.get('presupuesto')!.value,
+      reparacionTerminada: this.formularioEdicion.get('reparacionTerminada')!.value,
+    }).subscribe(resp =>{
+      if (resp) {
+        Swal.close();
+        Swal.fire({
+          title: 'Reparacion actualizada',
+          icon: 'success'
+        }).then(() => this.reparaciones())
+      }
+    }, err =>{
+      if (err) {
+        Swal.close();
+        Swal.fire({
+          title: 'Ocurrio un error',
+          text: 'Intente nuevamente',
+          icon: 'error'
+        })
+      }
+    })
+    this.edicion = false;
   }
   getAllClients(): void{
     this.datosService.getUsers()
@@ -124,5 +162,8 @@ export class ReparacionesComponent implements OnInit {
       }
       this.formularioReparaciones.reset();
     });
+  }
+  cancelar(){
+    this.edicion = false;
   }
 }

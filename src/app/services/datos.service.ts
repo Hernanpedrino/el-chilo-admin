@@ -53,4 +53,10 @@ export class DatosService {
       {reparacion, descripcion, presupuesto, descripcionPresupuesto}
     )
   }
+
+  updateRepair({repairId, descripcion, descripcionPresupuesto, presupuesto, reparacionTerminada}:{repairId: string, descripcion: string, descripcionPresupuesto: string, presupuesto: number, reparacionTerminada: boolean}): Observable<Object>{
+    return this.http.put(`${environment.baseUrl}/reparaciones/${repairId}/update-repair`,
+    {descripcion, descripcionPresupuesto, presupuesto, reparacionTerminada}
+    )
+  }
 }
