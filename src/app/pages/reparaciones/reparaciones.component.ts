@@ -24,6 +24,7 @@ export class ReparacionesComponent implements OnInit {
   public fecha: Date | undefined;
   public clientes:Client[] = [];
   private idReparacion: string = '';
+  private idDeviceCliente: string = '';
 
   formularioReparaciones = new FormGroup({
     cliente: new FormControl('', [Validators.required]),
@@ -73,33 +74,42 @@ export class ReparacionesComponent implements OnInit {
     this.apellido = this.activeRepairs[i].usuario.apellido;
     this.fecha = this.activeRepairs[i].fechaRecepcion;
     this.idReparacion = this.activeRepairs[i]._id;
+    this.idDeviceCliente = this.clientes[i].deviceId;
   }
   guardarActualizacion(){
     Swal.showLoading();
-    this.datosService.updateRepair({
+    const repairUpdate$ = this.datosService.updateRepair({
       repairId: this.idReparacion,
       descripcion: this.formularioEdicion.get('maquinaRepuesto')!.value,
       descripcionPresupuesto: this.formularioEdicion.get('descripcion')!.value,
       presupuesto: this.formularioEdicion.get('presupuesto')!.value,
       reparacionTerminada: this.formularioEdicion.get('reparacionTerminada')!.value,
-    }).subscribe(resp =>{
-      if (resp) {
-        Swal.close();
-        Swal.fire({
-          title: 'Reparacion actualizada',
-          icon: 'success'
-        }).then(() => this.reparaciones())
-      }
-    }, err =>{
-      if (err) {
-        Swal.close();
-        Swal.fire({
-          title: 'Ocurrio un error',
-          text: 'Intente nuevamente',
-          icon: 'error'
-        })
-      }
     })
+    const notify$ = this.notificationService.sendNotification(
+      {
+        deviceId: this.idDeviceCliente,
+        titulo : 'Actualizacion en tu reparacion',
+        mensaje: 'El estado de tu reparacion ha sido actualizado. Revisa la aplicacion para ver los cambios',
+        categoria: 'reparacion'
+      });
+      combineLatest([repairUpdate$, notify$]).subscribe(resp =>{
+        if (resp) {
+          Swal.close();
+          Swal.fire({
+            icon: 'success',
+            title: 'Reparacion actualizada con exito'
+          })
+          this.reparaciones();
+        }
+      }, err =>{
+        if (err) {
+          Swal.close();
+          Swal.fire({
+            icon: 'error',
+            text: 'Sucedio un error. Intente nuevamente'
+          })
+        }
+      });
     this.edicion = false;
   }
   getAllClients(): void{
@@ -120,6 +130,7 @@ export class ReparacionesComponent implements OnInit {
     return {id, descripcion, categoria, presupuesto, descripcionMaquinaAfilado}
   }
   registrarReparacion(){
+    Swal.showLoading();
     const valorPresupuesto = Number(this.datosFormulario().presupuesto);
     const catLowercase = this.datosFormulario().categoria.toLowerCase();
     let titulo;
@@ -147,14 +158,17 @@ export class ReparacionesComponent implements OnInit {
       });
     combineLatest([repair$, notifi$]).subscribe(resp =>{
       if (resp) {
+        Swal.close();
         Swal.fire({
           icon: 'success',
           title: 'Reparacion cargada con exito'
         })
+        this.reparaciones();
       }
       this.formularioReparaciones.reset();
     }, err =>{
       if (err) {
+        Swal.close();
         Swal.fire({
           icon: 'error',
           text: 'Sucedio un error. Intente nuevamente'
