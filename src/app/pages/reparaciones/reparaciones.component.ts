@@ -32,6 +32,9 @@ export class ReparacionesComponent implements OnInit {
     descripcion: new FormControl('', [Validators.required]),
     presupuesto: new FormControl(''),
   })
+  formularioEdicion = new FormGroup({
+    
+  })
   constructor(private datosService: DatosService,
               private notificationService: NotificationsService) { }
 

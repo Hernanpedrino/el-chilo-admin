@@ -1,10 +1,10 @@
 <div class="row">
     <div class="col-6 mt-4">
       <h3 class="text-center">Reparaciones y Afilados</h3>
-        <div class="accordion" id="accordionExample">
+        <div class="accordion mt-4" id="accordionExample">
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                   Reparaciones activas
                 </button>
               </h2>
@@ -179,28 +179,29 @@
         </div>
     </div>
 </div>
-<div class="row justify-content-center" *ngIf="edicion">
+<div class="row justify-content-start mb-4" *ngIf="edicion">
   <div class="col-8">
     <h3 class="text-center mt-4">Editar Reparacion</h3>
     <h3><strong>Cliente</strong> <h5 class="mt-1">{{nombre | titlecase}} {{apellido | titlecase}}</h5></h3>
     <h5>Fecha de recepcion {{fecha | date }}</h5>
-    <form action="">
+    <form [formGroup]="formularioEdicion">
       <fieldset>
-        <div class="form-group row">
-          <div class="form-group">
+        <div class="form-group">
+          <div class="form-group col-8">
             <label class="col-form-label mt-4" for="inputDefault">Maquina-Repuesto</label>
             <input type="text" class="form-control">
           </div>
-          <div class="form-group">
+          <div class="form-group col-8">
             <label for="exampleTextarea" class="form-label mt-4">Descripcion del presupuesto</label>
             <textarea class="form-control" rows="3"></textarea>
           </div>
-          <div class="form-group">
+          <div class="form-group col-8">
             <label class="col-form-label mt-4" for="inputDefault">Presupuesto</label>
             <input type="text" class="form-control">
           </div>
         </div>
       </fieldset>
+      <button class="btn btn-primary mt-4">Guardar Cambios</button>
     </form>
   </div>
 </div>
