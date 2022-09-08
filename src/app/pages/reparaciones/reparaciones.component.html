@@ -29,8 +29,8 @@
                                     <td>{{repair.fechaRecepcion | date}}</td>
                                     <td>{{repair.usuario.nombre | titlecase}}</td>
                                     <td>{{repair.usuario.apellido | titlecase}}</td>
-                                    <td>{{repair.descripcion | titlecase}}</td>
-                                    <td>{{repair.presupuesto | currency}}</td>
+                                    <td>{{repair.detalleMaquinaAfilado | titlecase}}</td>
+                                    <td>{{repair.valorPresupuesto | currency}}</td>
                                     <td><button class="btn btn-primary" (click)="editar(i)"><i class="bi bi-pencil-square"></i></button></td>
                                   </tr>
                                 </tbody>
@@ -100,8 +100,8 @@
                         <td>{{afilado.fechaRecepcion | date}}</td>
                         <td>{{afilado.usuario.nombre | titlecase}}</td>
                         <td>{{afilado.usuario.apellido | titlecase}}</td>
-                        <td>{{afilado.descripcion | titlecase}}</td>
-                        <td>{{afilado.presupuesto | currency}}</td>
+                        <td>{{afilado.detalleMaquinaAfilado | titlecase}}</td>
+                        <td>{{afilado.valorPresupuesto | currency}}</td>
                       </tr>
                     </tbody>
                 </table>

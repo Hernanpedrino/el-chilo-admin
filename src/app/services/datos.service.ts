@@ -47,10 +47,10 @@ export class DatosService {
     return this.http.get(`${environment.baseUrl}/reparaciones`);
   }
 
-  newRepair({userId, reparacion, descripcion, presupuesto, descripcionPresupuesto}: {userId:string, reparacion: string, descripcion:string, presupuesto:number, descripcionPresupuesto:string}): Observable<Object>{
+  newRepair({userId, tipoReparacion, detalleMaquinaAfilado, presupuesto, descripcionPresupuesto}: {userId:string, tipoReparacion: string, detalleMaquinaAfilado:string, presupuesto:number, descripcionPresupuesto:string}): Observable<Object>{
     return this.http.post(
       `${environment.baseUrl}/reparaciones/${userId}/new-repair`,
-      {reparacion, descripcion, presupuesto, descripcionPresupuesto}
+      {tipoReparacion, detalleMaquinaAfilado, presupuesto, descripcionPresupuesto}
     )
   }
 

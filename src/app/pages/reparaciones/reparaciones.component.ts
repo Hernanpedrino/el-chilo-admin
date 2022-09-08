@@ -30,7 +30,7 @@ export class ReparacionesComponent implements OnInit {
     cliente: new FormControl('', [Validators.required]),
     tipo: new FormControl('', [Validators.required]),
     descripcionMaquinaAfilado: new FormControl('', [Validators.required]),
-    descripcion: new FormControl('', [Validators.required]),
+    descripcion: new FormControl(''),
     presupuesto: new FormControl(''),
   })
 
@@ -52,13 +52,14 @@ export class ReparacionesComponent implements OnInit {
     this.datosService.getReparaciones().subscribe((resp:any)=>{
       let tempArr = []
       tempArr = resp.repairs;
-      const filtroRepActivas = tempArr.filter((active:any) => active.reparacionTerminada == false && active.reparacion == 'reparacion');
+      console.log(tempArr);
+      const filtroRepActivas = tempArr.filter((active:any) => active.reparacionTerminada == false && active.tipoReparacion == 'reparacion');
       this.activeRepairs = filtroRepActivas;
-      const filtroRepTerminadas = tempArr.filter((active:any) => active.reparacionTerminada == true && active.reparacion == 'reparacion');
+      const filtroRepTerminadas = tempArr.filter((active:any) => active.reparacionTerminada == true && active.tipoReparacion == 'reparacion');
       this.finishedRepairs = filtroRepTerminadas;
-      const filtroAfiladosActivos = tempArr.filter((active:any) => active.reparacionTerminada == false && active.reparacion == 'afilado');
+      const filtroAfiladosActivos = tempArr.filter((active:any) => active.reparacionTerminada == false && active.tipoReparacion == 'afilado');
       this.afiladosActivos = filtroAfiladosActivos;
-      const filtroAfiladosTerminados = tempArr.filter((active:any) => active.reparacionTerminada == true && active.reparacion == 'afilado');
+      const filtroAfiladosTerminados = tempArr.filter((active:any) => active.reparacionTerminada == true && active.tipoReparacion == 'afilado');
       this.afiladosTerminados = filtroAfiladosTerminados;
     });
   }
@@ -144,8 +145,8 @@ export class ReparacionesComponent implements OnInit {
     const repair$ = this.datosService.newRepair(
       {
         userId: this.datosFormulario().id, 
-        reparacion: catLowercase, 
-        descripcion: this.datosFormulario().descripcionMaquinaAfilado, 
+        tipoReparacion: catLowercase, 
+        detalleMaquinaAfilado: this.datosFormulario().descripcionMaquinaAfilado, 
         presupuesto: valorPresupuesto, 
         descripcionPresupuesto: this.datosFormulario().descripcion
       })
