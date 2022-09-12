@@ -30,15 +30,17 @@ export class ReparacionesComponent implements OnInit {
     cliente: new FormControl('', [Validators.required]),
     tipo: new FormControl('', [Validators.required]),
     descripcionMaquinaAfilado: new FormControl('', [Validators.required]),
-    descripcion: new FormControl(''),
-    presupuesto: new FormControl(''),
+    descripcionPresupuesto: new FormControl(''),
+    valorPresupuesto: new FormControl(''),
   })
 
   formularioEdicion = new FormGroup({
     maquinaRepuesto: new FormControl(),
-    descripcion: new FormControl(),
-    presupuesto: new FormControl(),
+    descripcionPresupuesto: new FormControl(),
+    valorPresupuesto: new FormControl(),
+    enTaller: new FormControl(),
     reparacionTerminada: new FormControl(),
+    retiroCliente: new FormControl(),
   })
   
   constructor(private datosService: DatosService,
@@ -52,7 +54,6 @@ export class ReparacionesComponent implements OnInit {
     this.datosService.getReparaciones().subscribe((resp:any)=>{
       let tempArr = []
       tempArr = resp.repairs;
-      console.log(tempArr);
       const filtroRepActivas = tempArr.filter((active:any) => active.reparacionTerminada == false && active.tipoReparacion == 'reparacion');
       this.activeRepairs = filtroRepActivas;
       const filtroRepTerminadas = tempArr.filter((active:any) => active.reparacionTerminada == true && active.tipoReparacion == 'reparacion');
@@ -65,10 +66,12 @@ export class ReparacionesComponent implements OnInit {
   }
   editar(i:number){
     this.formularioEdicion.setValue({
-      maquinaRepuesto: this.activeRepairs[i].descripcion,
-      descripcion: this.activeRepairs[i].descripcionPresupuesto,
-      presupuesto: this.activeRepairs[i].presupuesto,
-      reparacionTerminada: this.activeRepairs[i].reparacionTerminada
+      maquinaRepuesto: this.activeRepairs[i].detalleMaquinaAfilado,
+      descripcionPresupuesto: this.activeRepairs[i].descripcionPresupuesto,
+      valorPresupuesto: this.activeRepairs[i].valorPresupuesto,
+      enTaller: this.activeRepairs[i].enTaller,
+      reparacionTerminada: this.activeRepairs[i].reparacionTerminada,
+      retiroCliente: this.activeRepairs[i].retiroCliente,
     })
     this.edicion = true;
     this.nombre = this.activeRepairs[i].usuario.nombre;
@@ -81,9 +84,11 @@ export class ReparacionesComponent implements OnInit {
     Swal.showLoading();
     const repairUpdate$ = this.datosService.updateRepair({
       repairId: this.idReparacion,
-      descripcion: this.formularioEdicion.get('maquinaRepuesto')!.value,
-      descripcionPresupuesto: this.formularioEdicion.get('descripcion')!.value,
-      presupuesto: this.formularioEdicion.get('presupuesto')!.value,
+      detalleMaquinaAfilado: this.formularioEdicion.get('maquinaRepuesto')!.value,
+      descripcionPresupuesto: this.formularioEdicion.get('descripcionPresupuesto')!.value,
+      valorPresupuesto: this.formularioEdicion.get('valorPresupuesto')!.value,
+      enTaller: this.formularioEdicion.get('enTaller')!.value,
+      retiroCliente: this.formularioEdicion.get('retiroCliente')!.value,
       reparacionTerminada: this.formularioEdicion.get('reparacionTerminada')!.value,
     })
     const notify$ = this.notificationService.sendNotification(
@@ -112,6 +117,7 @@ export class ReparacionesComponent implements OnInit {
         }
       });
     this.edicion = false;
+    this.reparaciones();
   }
   getAllClients(): void{
     this.datosService.getUsers()
@@ -124,15 +130,15 @@ export class ReparacionesComponent implements OnInit {
   }
   datosFormulario(){
     const id = this.formularioReparaciones.get('cliente')!.value!;
-    const descripcion = this.formularioReparaciones.get('descripcion')!.value!;
+    const descripcionPresupuesto = this.formularioReparaciones.get('descripcionPresupuesto')!.value!;
     const descripcionMaquinaAfilado = this.formularioReparaciones.get('descripcionMaquinaAfilado')!.value!;
     const categoria = this.formularioReparaciones.get('tipo')!.value!;
-    const presupuesto = this.formularioReparaciones.get('presupuesto')!.value!;
-    return {id, descripcion, categoria, presupuesto, descripcionMaquinaAfilado}
+    const valorPresupuesto = this.formularioReparaciones.get('valorPresupuesto')!.value!;
+    return {id, descripcionPresupuesto, categoria, valorPresupuesto, descripcionMaquinaAfilado}
   }
   registrarReparacion(){
     Swal.showLoading();
-    const valorPresupuesto = Number(this.datosFormulario().presupuesto);
+    const valorPresupuesto = Number(this.datosFormulario().valorPresupuesto);
     const catLowercase = this.datosFormulario().categoria.toLowerCase();
     let titulo;
     if (catLowercase === 'reparacion') {
@@ -148,13 +154,13 @@ export class ReparacionesComponent implements OnInit {
         tipoReparacion: catLowercase, 
         detalleMaquinaAfilado: this.datosFormulario().descripcionMaquinaAfilado, 
         presupuesto: valorPresupuesto, 
-        descripcionPresupuesto: this.datosFormulario().descripcion
+        descripcionPresupuesto: this.datosFormulario().descripcionPresupuesto
       })
     const notifi$ = this.notificationService.sendNotification(
       {
         deviceId,
         titulo,
-        mensaje: this.datosFormulario().descripcion,
+        mensaje: `${this.datosFormulario().descripcionMaquinaAfilado} ${this.datosFormulario().descripcionPresupuesto}`,
         categoria: catLowercase
       });
     combineLatest([repair$, notifi$]).subscribe(resp =>{

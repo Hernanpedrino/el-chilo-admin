@@ -54,9 +54,9 @@ export class DatosService {
     )
   }
 
-  updateRepair({repairId, descripcion, descripcionPresupuesto, presupuesto, reparacionTerminada}:{repairId: string, descripcion: string, descripcionPresupuesto: string, presupuesto: number, reparacionTerminada: boolean}): Observable<Object>{
+  updateRepair({repairId, detalleMaquinaAfilado, descripcionPresupuesto, valorPresupuesto, enTaller, reparacionTerminada, retiroCliente}:{repairId: string, detalleMaquinaAfilado: string, descripcionPresupuesto: string, valorPresupuesto: number, enTaller: boolean, reparacionTerminada: boolean, retiroCliente: boolean}): Observable<Object>{
     return this.http.put(`${environment.baseUrl}/reparaciones/${repairId}/update-repair`,
-    {descripcion, descripcionPresupuesto, presupuesto, reparacionTerminada}
+    {detalleMaquinaAfilado, descripcionPresupuesto, valorPresupuesto, enTaller, reparacionTerminada, retiroCliente}
     )
   }
 }
