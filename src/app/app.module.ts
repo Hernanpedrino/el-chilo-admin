@@ -23,7 +23,7 @@ registerLocaleData(es);
     SharedModule,
     RouterModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: "es-AR" }

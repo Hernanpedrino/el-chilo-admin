@@ -30,7 +30,10 @@
               "node_modules/bootswatch/dist/sandstone/bootstrap.min.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "sweetalert2"
+           ]
           },
           "configurations": {
             "production": {

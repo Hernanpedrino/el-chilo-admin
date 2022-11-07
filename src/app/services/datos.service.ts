@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, pluck } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +25,7 @@ export class DatosService {
     const token = localStorage.getItem('token') || '';
     const userId = localStorage.getItem('userId') || '';
     return this.http.get(`${environment.baseUrl}/usuarios/${userId}`,
-    {headers:{'x-token': token}}
+    {headers:{'authorization': `Bearer ${token}`}}
     ).pipe(
       map((resp:any)=>{return true;}),
       catchError(err => of(false))
@@ -58,5 +58,18 @@ export class DatosService {
     return this.http.put(`${environment.baseUrl}/reparaciones/${repairId}/update-repair`,
     {detalleMaquinaAfilado, descripcionPresupuesto, valorPresupuesto, enTaller, reparacionTerminada, retiroCliente}
     )
+  }
+  getLists(token: string): Observable<any[]>{
+    return this.http.get(`${environment.baseUrl}/files/listas`,
+    {headers: {'x-token':token}})
+    .pipe(
+      pluck('listas')
+    );
+  }
+  uploadLista (categoria: string, file:File){
+    const formData = new FormData();
+    formData.append('archivo', file)
+    formData.append('categoria', categoria)
+    return this.http.post(`${environment.baseUrl}/files/upload/listas`, formData)
   }
 }

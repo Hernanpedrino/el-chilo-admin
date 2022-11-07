@@ -27,20 +27,17 @@ export class LoginComponent implements OnInit {
     this.datosService.loginUser(email!, password!)
     .subscribe((resp:any)=>{
       if (resp) {
-        Swal.hideLoading();
         const token = resp.token;
         const userId = resp.usuario._id;
         localStorage.setItem('token', token);
         localStorage.setItem('userId', userId);
+        Swal.hideLoading();
         Swal.fire({
           title:'Bienvenido',
           icon: 'success'
         });
         this.router.navigateByUrl('/home');
-      
       }
-  
-      
     }, err=>{
       //TODO: Mostrar un loading o los errores con sweet alert
       console.log(err);

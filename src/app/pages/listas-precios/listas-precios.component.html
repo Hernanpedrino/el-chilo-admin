@@ -1,1 +1,35 @@
-<p>listas-precios works!</p>
+<div class="row">
+    <div class="col-6 mt-4">
+        <h3 class="text-center">Listas de precios guardadas</h3>
+        <table class="table table-bordered mt-4">
+            <thead>
+                <tr>
+                    <th>Lista de precios</th>
+                    <th>Fecha</th>
+                    <th>Actualizar lista</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let lista of listas; let i = index">
+                    <td>{{ lista.categoria | titlecase }}</td>
+                    <td>{{ lista.createdAt | date }}</td>
+                    <td class="text-center"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-6 mt-4">
+        <form [formGroup]="listasForm">
+            <legend>Subir nueva lista de precios</legend>
+            <div class="form-group mt-4">
+                <label for="categoria">Categoria Lista</label>
+                <input type="text" class="form-control" formControlName="categoria">
+            </div>
+            <div class="form-group">
+                <label for="formFile" class="form-label mt-4">Cargar Lista nueva</label>
+                <input class="form-control" type="file" (change)="subir($any($event.target).files[0])" #impFile>
+                <button class="btn btn-primary mt-4" (click)="subirLista()" [disabled]= "this.archivo === null || this.listasForm.invalid"><i class="bi bi-cloud-arrow-up" style="font-size: 1.5rem;"></i></button>
+            </div>
+        </form>
+    </div>
+</div>
