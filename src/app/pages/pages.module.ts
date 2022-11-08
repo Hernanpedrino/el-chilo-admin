@@ -12,7 +12,7 @@ import { RecetasComponent } from './recetas/recetas.component';
 import { ListasPreciosComponent } from './listas-precios/listas-precios.component';
 import { NotificacionesComponent } from './notificaciones/notificaciones.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { ComponentsModule } from './../components/components.module';
 
 
 @NgModule({
@@ -28,10 +28,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     NotificacionesComponent
   ],
   imports: [
-    CommonModule,
+  CommonModule,
     SharedModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ComponentsModule
   ],
   exports:[
     HomeComponent,
