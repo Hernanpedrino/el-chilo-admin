@@ -38,10 +38,12 @@ export class LoginComponent implements OnInit {
         });
         this.router.navigateByUrl('/home');
       }
-    }, err=>{
-      //TODO: Mostrar un loading o los errores con sweet alert
-      console.log(err);
+    }, ()=>{
+      Swal.fire({
+        title: 'Error',
+        text: 'Usuario o password incorrecto',
+        icon: 'error'
+      })
     });
   }
 }
-//TODO: Mostrar validaciones visuales en los campos cuando hay error.
