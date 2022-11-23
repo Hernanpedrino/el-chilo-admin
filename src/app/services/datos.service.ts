@@ -34,7 +34,7 @@ export class DatosService {
 
   getUsers(): Observable<Object>{
     const token = localStorage.getItem('token');
-    return this.http.get(`${environment.baseUrl}/usuarios`,{headers:{'x-token': token!}})
+    return this.http.get(`${environment.baseUrl}/usuarios`,{headers:{Authorization: `Bearer ${token}`}})
   }
   getUserById(id:string, token:string): Observable<Object>{
     return this.http.get(
